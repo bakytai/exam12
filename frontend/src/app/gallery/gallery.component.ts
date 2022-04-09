@@ -16,8 +16,6 @@ export class GalleryComponent implements OnInit {
   images: Observable<Image[]>
   loading: Observable<boolean>
   error: Observable<null | string>
-  imageDetails!: Image;
-  modalOpen = false;
 
   constructor(private store: Store<AppState>,public dialog: MatDialog) {
     this.images = store.select(state => state.images.images);

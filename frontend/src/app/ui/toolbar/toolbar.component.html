@@ -9,9 +9,6 @@
         <a routerLink="/" style="color: white;">Photo gallery!</a>
       </div>
       <nav fxLayout="row" fxLayoutAlign="space-between" *appUserType="'user' else anonMenu">
-        <div >
-          <a mat-button routerLink="/new/post">Add Image</a>
-        </div>
 
         <button mat-icon-button [matMenuTriggerFor]="menu">
           <mat-icon>account_circle</mat-icon>

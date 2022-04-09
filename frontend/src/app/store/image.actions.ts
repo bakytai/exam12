@@ -16,7 +16,7 @@ export const fetchImagesFailure = createAction(
 
 export const createImageRequest = createAction(
   '[Image] Create Request',
-  props<{imageData: ImageData}>()
+  props<{imageData:ImageData}>()
 );
 export const createImageSuccess = createAction(
   '[Image] Create Success'

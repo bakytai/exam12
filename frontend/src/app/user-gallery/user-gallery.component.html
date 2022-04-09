@@ -1,16 +1,17 @@
 <div class="main-page">
+  <button *appCheckId="this.userId" mat-raised-button color="accent" routerLink="/new/post">Add new Photo!</button>
 
   <div fxLayout="row" style="padding: 20px">
     <div *ngFor="let image of images | async">
       <mat-card class="example-card" style="width: 14rem; margin: 5px" >
         <img mat-card-xl-image [src]="'http://localhost:8000/uploads/' + image.image"
              [alt]="'Photo of ' + image.title"
-             (click)="openDialog()">
+             (click)="openDialog(image.image)">
         <mat-card-content>
           <h3 style="font-weight: bold">{{ image.title }}</h3>
         </mat-card-content>
         <div *appCheckId="image.user._id">
-          <button (click)="deleteImg(image._id)">Delete</button>
+          <button mat-raised-button color="accent" (click)="deleteImg(image._id)">Delete</button>
         </div>
       </mat-card>
     </div>

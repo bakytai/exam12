@@ -3,6 +3,8 @@ import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../store/type';
+import { createImageRequest } from '../store/image.actions';
+import { ImageData } from '../models/image.model';
 
 @Component({
   selector: 'app-form',
@@ -25,6 +27,6 @@ export class FormComponent implements OnInit {
 
   onSubmit() {
     const imageData: ImageData = this.form.value;
-    // this.store.dispatch(createImageRequest({imageData}))
+    this.store.dispatch(createImageRequest({imageData}))
   }
 }

@@ -34,6 +34,8 @@ router.get("/", async (req, res, next) => {
     }
 });
 
+
+
 router.delete('/:id', auth, async (req,res,next) => {
     try {
         const imageAuthor = await Image.findById(req.params.id).populate('user', '_id');

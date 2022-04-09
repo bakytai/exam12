@@ -13,9 +13,11 @@ import { ModalComponent } from '../modal/modal.component';
   styleUrls: ['./gallery.component.sass']
 })
 export class GalleryComponent implements OnInit {
-  images: Observable<Image[]>
-  loading: Observable<boolean>
-  error: Observable<null | string>
+  images: Observable<Image[]>;
+  loading: Observable<boolean>;
+  error: Observable<null | string>;
+  userName!: string;
+  isFalse = false;
 
   constructor(private store: Store<AppState>,public dialog: MatDialog) {
     this.images = store.select(state => state.images.images);
@@ -24,6 +26,7 @@ export class GalleryComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.store.dispatch(fetchImagesRequest({id: ''}));
   }
 

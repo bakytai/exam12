@@ -18,6 +18,7 @@ export class UserGalleryComponent implements OnInit {
   images: Observable<Image[]>;
   loading: Observable<boolean>;
   error: Observable<null | string>;
+  userName!: string;
 
   constructor(private route: ActivatedRoute, private store: Store<AppState>,public dialog: MatDialog) {
     this.images = store.select(state => state.images.images);

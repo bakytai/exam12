@@ -12,8 +12,8 @@ export class ImagesService {
 
   constructor(private http: HttpClient) { }
 
-  getImages() {
-    return this.http.get<Image[]>(environment.apiUrl + '/images').pipe(
+  getImages(id: string) {
+    return this.http.get<Image[]>(environment.apiUrl + `/images?user=${id}`).pipe(
       map(response => {
         return response.map(data => {
           return new Image(data._id,data.user,data.title,data.image);

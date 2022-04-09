@@ -21,7 +21,13 @@ const upload = multer({storage});
 
 router.get("/", async (req, res, next) => {
     try {
-        const images = await Image.find();
+        let query = {};
+
+        if (req.query.user) {
+            query.user = req.query.user;
+        }
+
+        const images = await Image.find(query).populate('user');
         return res.send(images);
     } catch(e) {
         next(e);

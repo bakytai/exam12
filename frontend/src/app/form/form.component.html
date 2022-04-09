@@ -1,1 +1,27 @@
 <p>form works!</p>
+<mat-card style="width: 500px; margin: 0 auto">
+  <h1>New artist</h1>
+  <mat-card-content>
+    <div class="error" *ngIf="error | async">
+      {{ error | async }}
+    </div>
+    <form (ngSubmit)="onSubmit()" #f="ngForm" fxLayout="column">
+      <mat-form-field appearance="outline">
+        <mat-label>Title</mat-label>
+        <input name="title" required matInput ngModel/>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Image</mat-label>
+        <app-file-input name="image" ngModel></app-file-input>
+      </mat-form-field>
+      <div>
+        <button
+          type="submit"
+          mat-raised-button
+          color="primary"
+          [disabled]="f.invalid || (loading | async)"
+        >ADD</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

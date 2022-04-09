@@ -1,23 +1,20 @@
-<!--<div class="main-page">-->
-<!--  -->
-<!--  <div fxLayout="row" style="padding: 20px">-->
-<!--    <div *ngFor="let image of images | async">-->
-<!--      <mat-card class="example-card" style="width: 14rem; margin: 5px" >-->
-<!--        <mat-card-header>-->
-<!--          <div *appHasRoles="['admin']">-->
-<!--            <mat-card-subtitle *ngIf="!cocktail.is_published">Unpublished</mat-card-subtitle>-->
-<!--          </div>-->
-<!--          <mat-card-title>{{ cocktail.title }}</mat-card-title>-->
-<!--        </mat-card-header>-->
-<!--        <img mat-card-xl-image [src]="cocktail.image | image" [alt]="'Photo of ' + cocktail.title">-->
-<!--        <div *appHasRoles="['admin']">-->
-<!--          <button mat-raised-button (click)="delete(cocktail.id)">Delete</button>-->
-<!--          <div *ngIf="!cocktail.is_published">-->
-<!--            <button mat-raised-button (click)="publish(cocktail.id)">Publish</button>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <button mat-raised-button color="accent" [routerLink]="['/cocktail/',cocktail.id]">VIEW RECIPE</button>-->
-<!--      </mat-card>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
+<div class="main-page">
+
+  <div fxLayout="row" style="padding: 20px">
+    <div *ngFor="let image of images | async">
+      <mat-card class="example-card" style="width: 14rem; margin: 5px" >
+        <img mat-card-xl-image [src]="image.image | image" [alt]="'Photo of ' + image.title"
+             (click)="openDialog(image.image)">
+        <mat-card-content>
+          <h3 style="font-weight: bold">{{ image.title }}</h3>
+          <a mat-raised-button color="accent" [routerLink]="['/users/', image.user._id]">
+            By: {{ image.user.displayName }}</a>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+
+
+

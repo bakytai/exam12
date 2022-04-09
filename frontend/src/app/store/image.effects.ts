@@ -18,10 +18,10 @@ import {
 
 @Injectable()
 
-export class ArtistsEffects {
+export class ImagesEffects {
   fetchImages = createEffect(() => this.actions.pipe(
     ofType(fetchImagesRequest),
-    mergeMap(() => this.imageService.getImages().pipe(
+    mergeMap(({id}) => this.imageService.getImages(id).pipe(
       map(images => fetchImagesSuccess({images})),
       catchError(() => of(fetchImagesFailure({error: 'Something went wrong'})))
     ))
@@ -44,7 +44,7 @@ export class ArtistsEffects {
     mergeMap(({id}) => this.imageService.deletePost(id).pipe(
       map(() => deleteImageSuccess()),
       tap(() => {
-        this.store.dispatch(fetchImagesRequest());
+        this.store.dispatch(fetchImagesRequest({id: ''}));
         this.helpers.openSnackbar('Post deleted!');
       }),
       catchError(() => of(deleteImageFailure({error: 'Wrong Data'})))

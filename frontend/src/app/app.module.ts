@@ -25,11 +25,15 @@ import { ToolbarComponent } from './ui/toolbar/toolbar.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { HasRolesDirective } from './directives/has-roles.directive';
 import { UserTypeDirective } from './directives/user-type.directive';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ValidateIdenticalDirective } from './directives/validate-identical.directive';
+import { ImagePipe } from './pipe/image.pipe';
+import { ModalComponent } from './modal/modal.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { UserGalleryComponent } from './user-gallery/user-gallery.component';
+import { CheckIdDirective } from './directives/check-id.directive';
 
 const socialConfig: SocialAuthServiceConfig = {
   autoLogin: false,
@@ -53,9 +57,12 @@ const socialConfig: SocialAuthServiceConfig = {
     GalleryComponent,
     FormComponent,
     ToolbarComponent,
-    HasRolesDirective,
     UserTypeDirective,
-    ValidateIdenticalDirective
+    ValidateIdenticalDirective,
+    ImagePipe,
+    ModalComponent,
+    UserGalleryComponent,
+    CheckIdDirective,
   ],
   imports: [
     BrowserModule,
@@ -74,7 +81,8 @@ const socialConfig: SocialAuthServiceConfig = {
     MatMenuModule,
     MatSidenavModule,
     MatToolbarModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDialogModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},

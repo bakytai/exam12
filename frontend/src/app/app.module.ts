@@ -4,11 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { SocialLoginModule } from 'angularx-social-login';
+import { FacebookLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from 'angularx-social-login';
 import { CenteredCardComponent } from './ui/centered-card/centered-card.component';
 import { MatCardModule } from '@angular/material/card';
 import { FileInputComponent } from './ui/file-input/file-input.component';
@@ -20,6 +18,28 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { FlexModule } from '@angular/flex-layout';
+import { AppStoreModule } from './app-store.module';
+import { environment } from '../environments/environment';
+import { AuthInterceptor } from './auth.interceptor';
+import { ToolbarComponent } from './ui/toolbar/toolbar.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { HasRolesDirective } from './directives/has-roles.directive';
+import { UserTypeDirective } from './directives/user-type.directive';
+import { MatToolbarModule } from '@angular/material/toolbar';
+
+const socialConfig: SocialAuthServiceConfig = {
+  autoLogin: false,
+  providers: [
+    {
+      id: FacebookLoginProvider.PROVIDER_ID,
+      provider: new FacebookLoginProvider(environment.fbAppId, {
+        scope: 'email,public_profile'
+      })
+    }
+  ]
+}
 
 @NgModule({
   declarations: [
@@ -29,7 +49,10 @@ import { FlexModule } from '@angular/flex-layout';
     LoginComponent,
     RegisterComponent,
     GalleryComponent,
-    FormComponent
+    FormComponent,
+    ToolbarComponent,
+    HasRolesDirective,
+    UserTypeDirective
   ],
   imports: [
     BrowserModule,
@@ -38,15 +61,21 @@ import { FlexModule } from '@angular/flex-layout';
     FormsModule,
     BrowserAnimationsModule,
     SocialLoginModule,
-    StoreModule.forRoot({}, {}),
-    EffectsModule.forRoot([]),
     MatCardModule,
     MatFormFieldModule,
     MatButtonModule,
     MatInputModule,
-    FlexModule
+    FlexModule,
+    AppStoreModule,
+    MatIconModule,
+    MatMenuModule,
+    MatSidenavModule,
+    MatToolbarModule
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    {provide: 'SocialAuthServiceConfig', useValue: socialConfig }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

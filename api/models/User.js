@@ -29,12 +29,6 @@ const UserSchema = new Schema({
     token: {
         type: String,
     },
-    role: {
-        type: String,
-        required: true,
-        default: 'user',
-        enum: ['user', 'admin']
-    },
     facebookId: String
 });
 

@@ -17,13 +17,11 @@ const run = async () => {
         email: 'sara@gmail.com',
         password: '000',
         displayName: 'sara',
-        role: 'admin',
         token: '5enDI2paOqusPavVWOnwB'
     }, {
         email: 'john@mail.ru',
         password: '000',
         displayName: 'john',
-        role: 'user',
         token: '8enDI2paOqusBavVWOnwL'
     });
 

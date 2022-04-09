@@ -19,5 +19,28 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage});
 
+router.get("/", async (req, res, next) => {
+    try {
+        const images = await Image.find();
+        return res.send(images);
+    } catch(e) {
+        next(e);
+    }
+});
 
+router.delete('/:id', auth, async (req,res,next) => {
+    try {
+        const imageAuthor = await Image.findById(req.params.id).populate('user', '_id');
+        console.log(imageAuthor)
+
+        if (req.user._id === imageAuthor.user) {
+            await Image.deleteOne({_id: req.params.id});
+            return res.send({message: 'Deleted image!'});
+        }
+
+        return res.send({message: 'You cannot delete!'});
+    } catch (e) {
+        next(e);
+    }
+});
 module.exports = router;

@@ -37,6 +37,7 @@ export class UsersService {
     });
   }
 
+
   logout() {
     return this.http.delete(environment.apiUrl + '/users/sessions');
   }

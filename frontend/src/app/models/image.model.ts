@@ -12,5 +12,5 @@ export class Image {
 export interface ImageData {
   [key: string]: any;
   title: string;
-  image: File | null;
+  image: File;
 }

@@ -34,7 +34,27 @@ router.get("/", async (req, res, next) => {
     }
 });
 
+router.post('/', auth, upload.single('image'), async (req, res, next) => {
+    try {
+        if (req.user) {
+            const imageData = {
+                user: req.user._id,
+                title: req.body.title,
+                image: req.file.filename,
+            };
 
+            const image = new Image(imageData);
+
+            await image.save();
+
+            return res.send({message: 'Created new image'});
+        }
+
+        return res.send({message: 'You can t post!'});
+    } catch (e) {
+        next(e);
+    }
+});
 
 router.delete('/:id', auth, async (req,res,next) => {
     try {

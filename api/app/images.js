@@ -58,10 +58,10 @@ router.post('/', auth, upload.single('image'), async (req, res, next) => {
 
 router.delete('/:id', auth, async (req,res,next) => {
     try {
-        const imageAuthor = await Image.findById(req.params.id).populate('user', '_id');
-        console.log(imageAuthor)
+        const imageAuthor = await Image.findById(req.params.id);
+        console.log(imageAuthor.user._id.toString())
 
-        if (req.user._id === imageAuthor.user) {
+        if (req.user._id.toString() === imageAuthor.user._id.toString()) {
             await Image.deleteOne({_id: req.params.id});
             return res.send({message: 'Deleted image!'});
         }

@@ -5,7 +5,7 @@ import { HelpersService } from '../services/helpers.service';
 import { AppState } from './type';
 import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
-import { catchError, mergeMap, of, tap } from 'rxjs';
+import { catchError, mergeMap, of, tap, withLatestFrom } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
   createImageFailure,
@@ -41,10 +41,13 @@ export class ImagesEffects {
 
   deleteImage = createEffect(() => this.actions.pipe(
     ofType(deleteImageRequest),
-    mergeMap(({id}) => this.imageService.deletePost(id).pipe(
+    withLatestFrom(this.store.select(state => state.users.user)),
+    mergeMap(([{id}, user]) => this.imageService.deletePost(id).pipe(
       map(() => deleteImageSuccess()),
       tap(() => {
-        this.store.dispatch(fetchImagesRequest({id: ''}));
+        if (user) {
+          this.store.dispatch(fetchImagesRequest({id: user._id}))
+        }
         this.helpers.openSnackbar('Post deleted!');
       }),
       catchError(() => of(deleteImageFailure({error: 'Wrong Data'})))

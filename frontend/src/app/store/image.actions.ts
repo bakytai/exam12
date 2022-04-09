@@ -28,7 +28,7 @@ export const createImageFailure = createAction(
 
 export const deleteImageRequest = createAction(
   '[Image] Delete Request',
-  props<{id: string}>()
+  props<{id: string, }>()
 );
 export const deleteImageSuccess = createAction(
   '[Image] Delete Success'

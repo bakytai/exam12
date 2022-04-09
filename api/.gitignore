@@ -1,2 +1,8 @@
 node_modules
 .idea
+public/uploads/*
+!public/uploads/.gitkeep
+!public/uploads/ocean.jpg
+!public/uploads/nature.jpg
+!public/uploads/s1.jpg
+!public/uploads/hobby.webp

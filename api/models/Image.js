@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const mime = require('mime-types');
 const config = require('../config');
 
-const imageMimeTypes = ['image/jpeg', 'image/png', 'image/gif'];
+const imageMimeTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
 
 const ImageSchema = new Schema({
     user: {

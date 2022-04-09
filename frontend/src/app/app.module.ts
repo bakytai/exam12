@@ -28,6 +28,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { HasRolesDirective } from './directives/has-roles.directive';
 import { UserTypeDirective } from './directives/user-type.directive';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ValidateIdenticalDirective } from './directives/validate-identical.directive';
 
 const socialConfig: SocialAuthServiceConfig = {
   autoLogin: false,
@@ -52,7 +54,8 @@ const socialConfig: SocialAuthServiceConfig = {
     FormComponent,
     ToolbarComponent,
     HasRolesDirective,
-    UserTypeDirective
+    UserTypeDirective,
+    ValidateIdenticalDirective
   ],
   imports: [
     BrowserModule,
@@ -70,7 +73,8 @@ const socialConfig: SocialAuthServiceConfig = {
     MatIconModule,
     MatMenuModule,
     MatSidenavModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatSnackBarModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},

@@ -6,7 +6,6 @@ export interface User {
 }
 
 export interface RegisterUserData {
-  [key: string]: any;
   email: string,
   password: string,
   displayName: string,

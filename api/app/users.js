@@ -3,8 +3,37 @@ const { nanoid } = require('nanoid');
 const config = require('../config');
 const User = require('../models/User');
 const axios = require("axios");
+const mongoose = require("mongoose");
+
 
 const router = express.Router();
+
+router.post('/', async (req, res, next) => {
+    try {
+        if (!req.body.email || !req.body.password || !req.body.displayName) {
+            return res.status(400).send({message: 'Please complete all fields'});
+        }
+
+        const userData = {
+            email: req.body.email,
+            password: req.body.password,
+            displayName: req.body.displayName,
+        };
+
+        const user = new User(userData);
+        user.generateToken();
+
+        await user.save();
+
+        res.send(user);
+    } catch (error) {
+        if (error instanceof mongoose.Error.ValidationError) {
+            return res.status(400).send(error);
+        }
+
+        return next(error);
+    }
+});
 
 router.post('/sessions', async (req, res) => {
     const user = await User.findOne({email: req.body.email});
